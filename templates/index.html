@@ -1,0 +1,49 @@
+{%  extends 'base.html' %}
+
+{% load static %}
+{%  block body  %}
+
+<br>
+    <div class="button-group">
+        <a href="{% url 'display_equipment' %}" class="btn-primary btn-md" role="button"> Equipment </a>
+        <a href="#" class="btn-warning btn-sm" role="button">+ </a>
+
+
+     <a href="{%  url 'add_equipment' %}" class="btn-primary btn-md" role="button"> Add Equipment </a>
+        <a href="#" class="btn-warning btn-sm" role="button">+ </a>
+
+     <a href="#" class="btn-primary btn-md" role="button"> Service Manuals</a>
+        <a href="#" class="btn-warning btn-sm" role="button">+</a>
+    </div>
+    </br>
+    <td><h1>Equipment Inventory</h1></td>
+    <table class="table table-hover">
+    <thead>
+    <tr>
+    <th>Asset Id</th>
+    <th>Serial Number</th>
+    <th>Manufactorer</th>
+    <th>Category</th>
+        <th>Department</th>
+        <th>Purchase Order</th>
+
+
+    </tr>
+    </thead>
+
+<tbody>
+{%  for item in items %}
+    <tr>
+   <td>{{ item.pk}}</td>
+    <td>{{ item.serialNumber }}</td>
+    <td>{{ item.manufacturer }}</td>
+    <td>{{ item.category }}</td>
+    <td>{{ item.department }}</td>
+    <td>{{ item.purchaseOrder }}</td>
+    </tr>
+{%  endfor %}
+
+</tbody>
+    </table>
+
+{%  endblock %}
