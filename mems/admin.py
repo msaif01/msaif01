@@ -5,3 +5,7 @@ from .models import *
 @admin.register(Equipment)
 class ViewAdmin(admin.ModelAdmin):
     pass
+
+@admin.register(Job)
+class ViewAdmin(admin.ModelAdmin):
+    pass

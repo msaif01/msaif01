@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from .forms import *
@@ -24,9 +25,22 @@ def add_item(request, cls):
 
     else:
         form = cls()
-        return render(request, 'add_equipment.html', {'form' : form})
+        return render(request, 'add_equipment.html', {'form': form})
 
 
 def add_equipment(request):
     return add_item(request, EquipmentForm)
 
+
+def add_jobs(request):
+    if request.method == 'POST':
+        form = JobsForm(request.POST)
+
+        if form.is_valid():
+          job = form.save(commit=False)
+          job.save()
+          return redirect('display_equipment')
+
+    else:
+        form = JobsForm()
+        return render(request, 'add_jobs.html', {'form': form})
