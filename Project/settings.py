@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'Project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'memsdata',
+        'NAME': 'memsdb',
         'USER': 'root',
         'PASSWORD': 'Microtel786',
         'HOST': 'localhost',

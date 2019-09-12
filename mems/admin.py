@@ -9,3 +9,17 @@ class ViewAdmin(admin.ModelAdmin):
 @admin.register(Job)
 class ViewAdmin(admin.ModelAdmin):
     pass
+
+@admin.register(Manufacturer)
+class ViewAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Department)
+class ViewAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Category)
+class ViewAdmin(admin.ModelAdmin):
+    pass
+
