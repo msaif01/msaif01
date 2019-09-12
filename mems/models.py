@@ -44,6 +44,8 @@ class Category(models.Model):
     def __str__(self):
         return self.category_name
 
+    class Meta:
+        ordering = ["category_name"]
 
 
 class Equipment(models.Model):
@@ -55,18 +57,19 @@ class Equipment(models.Model):
     purchase_order = models.CharField(max_length=25, default='')
 
     def __str__(self):
-        return 'asset_id : {0} serial_number : {1} manufacturer : {2} category : {3} department : {4} purchase_order'.format(
-            self.asset_id, self.serial_number, self.manufacturer, self.category, self.department, self.purchase_order)
+        return '{0}'.format(self.asset_id)
+       # return 'asset_id : {0} serial_number : {1} manufacturer : {2} category : {3} department : {4} purchase_order'.format(
+        #    self.asset_id, self.serial_number, self.manufacturer, self.category, self.department, self.purchase_order)
 
 
 
 class Job(models.Model):
-    acceptance = 'acceptance'
-    acceptance_loan = 'acceptance_loan'
-    ppm = 'ppm'
-    repair = 'repair'
-    incident = 'incident'
-    supply = 'supply'
+    acceptance = 'Acceptance'
+    acceptance_loan = 'Acceptance (Loan)'
+    ppm = 'PPM'
+    repair = 'Repair'
+    incident = 'Incident'
+    supply = 'Supply'
 
     JOB_TYPE_CHOICES = [
         (acceptance, 'Acceptence'),
