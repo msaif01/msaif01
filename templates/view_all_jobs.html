@@ -22,24 +22,23 @@
     <tr>
     <th>Job Number</th>
     <th>Asset Id</th>
-    <th>Job Type</th>
-    <th>Category</th>
-        <th>Job Status</th>
-        <th>Purchase Order</th>
+        <th>Job Type</th>
+    <th>Department</th>
+    <th>Job Status</th>
+
 
 
     </tr>
     </thead>
 
 <tbody>
-{%  for item in items %}
+{%  for job in jobs %}
     <tr>
-   <td>{{ item.pk}}</td>
-    <td>{{ item.serial_number }}</td>
-    <td>{{ item.manufacturer }}</td>
-    <td>{{ item.category }}</td>
-    <td>{{ item.department }}</td>
-    <td>{{ item.purchase_order }}</td>
+   <td>{{ job.pk}}</td>
+    <td>{{ job.equipment }}</td>
+    <td>{{ job.job_type }}</td>
+    <td>{{ job.job_department }}</td>
+    <td>{{ job.job_status }}</td>
     </tr>
 {%  endfor %}
 

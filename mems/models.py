@@ -60,7 +60,6 @@ class Equipment(models.Model):
 
 
 
-
 class Job(models.Model):
     acceptance = 'acceptance'
     acceptance_loan = 'acceptance_loan'
@@ -86,11 +85,11 @@ class Job(models.Model):
         (supply, 'Supply'),
     ]
 
-    created = 'created'
-    in_progress = 'in_progress'
-    completed_service = 'completed_service'
-    completed_repair = 'completed_repair'
-    completed_repair_service = 'completed_repair_service'
+    created = 'Created'
+    in_progress = 'In progress'
+    completed_service = 'Completed (Service)'
+    completed_repair =  'Completed (Repair)'
+    completed_repair_service = 'Completed (Repair & Service)'
 
     JOB_STATUS_CHOICES = [
         (created, 'Created'),
@@ -114,3 +113,12 @@ class Job(models.Model):
     def __str__(self):
         return 'job_number : {0} equipment : {1} job_department : {2} job_type : {3} job_status : {4} job_description : {5} job_work_done'.format(
             self.job_number, self.equipment, self.job_department, self.job_type, self.job_status, self.job_description, self.job_work_done)
+
+
+
+class Stock(models.Model):
+    stock_number = models.CharField(max_length=20)
+    stock_description= models.CharField(max_length=50)
+    stock_price = models.IntegerField()
+    stock_quantity = models.IntegerField()
+

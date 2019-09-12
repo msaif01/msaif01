@@ -7,6 +7,17 @@ def index(request):
     return render(request,'index.html')
 
 # Create your views here.
+
+def display_jobs(request):
+    jobs = Job.objects.all()
+    context = {
+        'jobs': jobs,
+        'header': 'Job',
+    }
+    return render(request, 'view_all_jobs.html', context)
+
+
+
 def display_equipment(request):
     items = Equipment.objects.all()
     context = {
@@ -39,7 +50,7 @@ def add_jobs(request):
         if form.is_valid():
           job = form.save(commit=False)
           job.save()
-          return redirect('display_equipment')
+          return redirect('display_jobs')
 
     else:
         form = JobsForm()
