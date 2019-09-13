@@ -55,3 +55,18 @@ def add_jobs(request):
     else:
         form = JobsForm()
         return render(request, 'add_jobs.html', {'form': form})
+
+
+def job_edit(request, job_number=None):
+    instance = get_object_or_404(Job, job_number=job_number)
+    form = JobsForm(request.POST or None, instance=instance)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.save()
+        return redirect('display_jobs')
+    context = {
+            "title": 'Edit ' + str(instance.job_number),
+            "instance": instance,
+            "form": form,
+        }
+    return render(request, "job_edit.html", context)

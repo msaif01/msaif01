@@ -1,4 +1,6 @@
 from django.db import models
+import datetime
+from django.urls import reverse
 
 
 # Create your models here.
@@ -64,6 +66,9 @@ class Equipment(models.Model):
 
 
 class Job(models.Model):
+    from datetime import date
+
+
     acceptance = 'Acceptance'
     acceptance_loan = 'Acceptance (Loan)'
     ppm = 'PPM'
@@ -109,6 +114,7 @@ class Job(models.Model):
     job_type = models.CharField(max_length=20, choices=JOB_TYPE_CHOICES)
     job_department = models.ForeignKey(Department, on_delete=models.CASCADE)
     job_status = models.CharField(max_length=20, choices=JOB_STATUS_CHOICES)
+    job_date = models.DateField("Date", default=date.today)
     job_description = models.CharField(max_length=100, default='')
     job_work_done = models.CharField(max_length=300, default='')
     job_time_taken = models.IntegerField(choices=JOB_WORKDONE_TIME_CHOICES, default=0)

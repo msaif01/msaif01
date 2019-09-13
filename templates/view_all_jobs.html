@@ -25,6 +25,7 @@
         <th>Job Type</th>
     <th>Department</th>
     <th>Job Status</th>
+        <th> Date Created </th>
 
 
 
@@ -34,11 +35,12 @@
 <tbody>
 {%  for job in jobs %}
     <tr>
-   <td>{{ job.pk}}</td>
+<td>{{ job.pk}}</td>
     <td>{{ job.equipment }}</td>
     <td>{{ job.job_type }}</td>
     <td>{{ job.job_department }}</td>
     <td>{{ job.job_status }}</td>
+    <td>{{ job.job_date }}</td>
     </tr>
 {%  endfor %}
 
