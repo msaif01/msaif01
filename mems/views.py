@@ -22,7 +22,7 @@ def display_equipment(request):
     items = Equipment.objects.all()
     context = {
         'items': items,
-        'header': 'Equipment',
+        'header': Equipment,
     }
     return render(request, 'index.html', context)
 
@@ -70,6 +70,16 @@ def job_edit(request, job_number=None):
             "title": 'Edit ' + str(instance.job_number),
             "instance": instance,
             "form": form,
-            "job_number": job_number
+            "job_number": job_number,
+
         }
     return render(request, "job_edit.html", context)
+
+def job_view(request,job_number=None):
+    instance = get_object_or_404(Job, job_number=job_number)
+
+    context = {
+        'job_number': job_number,
+        'instance': instance,
+    }
+    return render(request,"job_view.html", context)
