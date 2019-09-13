@@ -64,9 +64,12 @@ def job_edit(request, job_number=None):
         instance = form.save(commit=False)
         instance.save()
         return redirect('display_jobs')
+
+
     context = {
             "title": 'Edit ' + str(instance.job_number),
             "instance": instance,
             "form": form,
+            "job_number": job_number
         }
     return render(request, "job_edit.html", context)
