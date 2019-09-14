@@ -14,7 +14,7 @@ def display_jobs(request):
         'jobs': jobs,
         'header': 'Job',
     }
-    return render(request, 'view_all_jobs.html', context)
+    return render(request, 'display_jobs.html', context)
 
 
 
@@ -50,7 +50,8 @@ def add_jobs(request):
         if form.is_valid():
           job = form.save(commit=False)
           job.save()
-          return redirect('display_jobs')
+          instance = job
+          return redirect('job_view', instance.job_number)
 
     else:
         form = JobsForm()
@@ -63,7 +64,7 @@ def job_edit(request, job_number=None):
     if form.is_valid():
         instance = form.save(commit=False)
         instance.save()
-        return redirect('display_jobs')
+        return redirect('job_view', job_number)
 
 
     context = {

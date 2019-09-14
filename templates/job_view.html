@@ -4,7 +4,6 @@
 
 
 
-
   <div class="container">
     <form method="POST">
 
@@ -16,7 +15,7 @@
 <H1>Job View</H1>
     <br>
         </br>
-<table class="table  table-dark table-striped">
+<table class="table  table-dark table-striped table-hover">
   <thead>
     <tr>
       <th scope="col"></th>
@@ -36,6 +35,11 @@
     <tr>
       <th scope="row">Job Number :</th>
       <td>{{ instance.job_number}}</td>
+    </tr>
+    <tr>
+        <tr>
+      <th scope="row">Job Department :</th>
+      <td>{{ instance.job_department}}</td>
     </tr>
     <tr>
       <th scope="row">Equipment Id :</th>
@@ -92,8 +96,8 @@
       <div class="form-group row">
         <div class="offset-sm-2 col-sm-6">
 
-          <button type="submit" class="btn btn-primary">Update Job</button>
-
+<a class="btn btn-primary" href="{% url 'display_jobs' %}" role="button">All Jobs</a>
+<a class="btn btn-primary" href="{% url 'job_edit' job_number %}" role="button">Edit Job</a>
         </div>
       </div>
     </form>

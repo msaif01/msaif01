@@ -95,6 +95,7 @@ class Job(models.Model):
 
     created = 'Created'
     in_progress = 'In progress'
+    completed_acceptance = 'Completed (Acceptance)'
     completed_service = 'Completed (Service)'
     completed_repair =  'Completed (Repair)'
     completed_repair_service = 'Completed (Repair & Service)'
@@ -102,6 +103,7 @@ class Job(models.Model):
     JOB_STATUS_CHOICES = [
         (created, 'Created'),
         (in_progress, 'In progress'),
+        (completed_acceptance, 'Completed Acceptance'),
         (completed_service, 'Completed Service'),
         (completed_repair, 'Completed Repair'),
         (completed_repair_service, 'Completed Repair and Service')
@@ -118,6 +120,7 @@ class Job(models.Model):
     job_description = models.CharField(max_length=100, default='')
     job_work_done = models.CharField(max_length=300, default='')
     job_time_taken = models.IntegerField(choices=JOB_WORKDONE_TIME_CHOICES, default=0)
+
 
     def __str__(self):
         return 'job_number : {0} equipment : {1} job_department : {2} job_type : {3} job_status : {4} job_description : {5} job_work_done'.format(

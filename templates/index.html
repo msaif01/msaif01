@@ -4,21 +4,46 @@
 {%  block body  %}
 
 <br>
-    <div class="button-group">
-        <a href="{% url 'display_equipment' %}" class="btn-primary btn-md" role="button"> Equipment </a>
-        <a href="#" class="btn-warning btn-sm" role="button">+ </a>
 
 
-     <a href="{%  url 'add_equipment' %}" class="btn-primary btn-md" role="button"> Add Equipment </a>
-        <a href="#" class="btn-warning btn-sm" role="button">+ </a>
+    <div class="row">
 
-     <a href="#" class="btn-primary btn-md" role="button"> Service Manuals</a>
-        <a href="#" class="btn-warning btn-sm" role="button">+</a>
+        <div class="col-sm-2 previous">
+         <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle btn-block" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Equipment
+            </button>
+             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                 <a class="dropdown-item" href="{% url 'add_equipment'  %}">Add new Equipment</a>
+                 <a class="dropdown-item" href="{% url 'display_equipment'  %}">View Equipment List</a>
+                 <a class="dropdown-item" href="#">Something else here</a>
+             </div>
+         </div>
+        </div>
+
+        <div class="col-sm-2 next">
+            <div class="dropdown">
+                 <button class="btn btn-secondary dropdown-toggle btn-block" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 Jobs
+                 </button>
+                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                     <a class="dropdown-item" href="{% url 'add_jobs'  %}">Create New Job</a>
+                     <a class="dropdown-item" href="{% url 'display_jobs'  %}">View Jobs</a>
+                     <a class="dropdown-item" href="#">Something else here</a>
+                 </div>
+            </div>
+        </div>
     </div>
-    </br>
+
+
+
+
+
+
+
     <td><h1>Equipment Inventory</h1></td>
     <table class="table table-hover">
-    <thead>
+    <thead class="thead-dark">
     <tr>
     <th>Asset Id</th>
     <th>Serial Number</th>
@@ -34,12 +59,13 @@
 <tbody>
 {%  for item in items %}
     <tr>
-   <td>{{ item.pk}}</td>
-    <td>{{ item.serial_number }}</td>
-    <td>{{ item.manufacturer }}</td>
-    <td>{{ item.category }}</td>
-    <td>{{ item.department }}</td>
-    <td>{{ item.purchase_order }}</td>
+    <td><a href="display_jobs">{{ item.pk }}</a></td>
+        <td><a href="display_jobs">{{ item.serial_number }}</a></td>
+        <td><a href="display_jobs">{{ item.manufacturer }}</a></td>
+        <td><a href="display_jobs">{{ item.category }}</a></td>
+        <td><a href="display_jobs">{{ item.department }}</a></td>
+        <td><a href="display_jobs">{{ item.purchase_order }}</a></td>
+
     </tr>
 {%  endfor %}
 

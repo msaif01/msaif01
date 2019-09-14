@@ -16,8 +16,8 @@
     </div>
     </br>
     <td><h1>All Jobs</h1></td>
-    <table class="table table-hover">
-    <thead>
+    <table class="table table-hover tab table-striped">
+    <thead class="thead-dark">
     <tr>
     <th>Job Number</th>
     <th>Asset Id</th>
@@ -33,13 +33,15 @@
 
 <tbody>
 {%  for job in jobs %}
-    <tr>
-<td>{{ job.pk}}</td>
-    <td>{{ job.equipment }}</td>
-    <td>{{ job.job_type }}</td>
-    <td>{{ job.job_department }}</td>
-    <td>{{ job.job_status }}</td>
-    <td>{{ job.job_date }}</td>
+    <tr class="text-lg-left">
+        <td><a href="{% url 'job_view' job.pk %}">{{ job.pk }}</a></td>
+        <td><a href="{% url 'job_view' job.pk %}">{{ job.equipment }}</a></td>
+        <td><a href="{% url 'job_view' job.pk %}">{{ job.job_type }}</a></td>
+        <td><a href="{% url 'job_view' job.pk %}">{{ job.job_department }}</a></td>
+        <td><a href="{% url 'job_view' job.pk %}">{{ job.job_status }}</a></td>
+        <td><a href="{% url 'job_view' job.pk %}">{{ job.job_date }}</a></td>
+
+
     </tr>
 {%  endfor %}
 
