@@ -82,7 +82,7 @@ class Job(models.Model):
         (ppm, 'PPM'),
         (repair, 'Repair'),
         (incident, 'Incident'),
-        (supply, 'supply')]
+        (supply, 'Supply')]
 
     JOB_TYPE_CHOICES = [
         (acceptance, 'Acceptence'),

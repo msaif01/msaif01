@@ -12,9 +12,15 @@
       <h4>{{ header }}</h4>
         <br>
         </br>
-<H1>Job View</H1>
+ <span class="d-block p-2 bg-dark text-white">Job Number: {{ job_number}}</span>
     <br>
         </br>
+        <div class="form-group row">
+        <div class="offset-sm-2 col-sm-6">
+
+<a class="btn btn-primary btn-block" href="{% url 'job_edit' job_number %}" role="button">Edit Job</a>
+        </div>
+      </div>
 <table class="table  table-dark table-striped table-hover">
   <thead>
     <tr>
@@ -91,15 +97,15 @@
 
   </tbody>
 </table>
-
-
-      <div class="form-group row">
+<div class="form-group row">
         <div class="offset-sm-2 col-sm-6">
 
 <a class="btn btn-primary" href="{% url 'display_jobs' %}" role="button">All Jobs</a>
 <a class="btn btn-primary" href="{% url 'job_edit' job_number %}" role="button">Edit Job</a>
         </div>
       </div>
+
+
     </form>
   </div>
 
