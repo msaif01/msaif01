@@ -2,6 +2,10 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from .forms import *
+from django.views.generic import ListView
+import django_tables2 as SimpleTable
+from django_tables2 import SingleTableView
+from .tables import JobsTable
 
 def index(request):
     return render(request,'index.html')
@@ -84,3 +88,10 @@ def job_view(request,job_number=None):
         'instance': instance,
     }
     return render(request,"job_view.html", context)
+
+
+def table_view(request):
+    table = JobsTable(Job.objects.all())
+    table.paginate(page=request.GET.get("page", 1), per_page=50)
+
+    return render(request,"simple_list.html", {"table": table})

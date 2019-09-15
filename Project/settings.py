@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
-    'mems'
+    'django_tables2',
+    'mems',
 ]
 
 MIDDLEWARE = [
@@ -132,3 +133,4 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+DJANGO_TABLES2_TEMPLATE = "django_tables2/bootstrap4.html"
