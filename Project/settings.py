@@ -134,3 +134,9 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 DJANGO_TABLES2_TEMPLATE = "django_tables2/bootstrap4.html"
+
+
+
+# Configure Django App for Heroku.
+import django_heroku
+django_heroku.settings(locals())
