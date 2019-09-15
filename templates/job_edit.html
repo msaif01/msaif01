@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load crispy_forms_tags %}
 {% block body %}
 
 
@@ -7,27 +7,20 @@
 
   <div class="container">
     <form method="POST">
+        
 
       {% csrf_token %}
 
       <h4>{{ header }}</h4>
         <br>
-
-        </br>
-
     <span class="d-block p-2 bg-dark text-white">Edit Job Number: {{ job_number}}</span>
+
+{{ form|crispy }}
+
     <br>
 
         </br>
-      {% for field in form %}
 
-      <div class="form-group row">
-        <label for="id_{{ field.name }}" class="col-2 col-form-label">{{ field.label }}</label>
-        <div class="col-10">
-          {{ field }}
-        </div>
-      </div>
-      {% endfor %}
 
       <div class="form-group row">
         <div class="offset-sm-2 col-sm-6">

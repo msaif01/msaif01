@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load crispy_forms_tags %}
 {% block body %}
     <br>
 
@@ -14,26 +14,14 @@
     <form method="POST">
 
       {% csrf_token %}
-
+{{ form|crispy }}
       <h4>{{ header }}</h4>
 
-      {% for field in form %}
+        <br></br>
 
-      <div class="form-group row">
-        <label for="id_{{ field.name }}" class="col-2 col-form-label">{{ field.label }}</label>
-        <div class="col-10">
-          {{ field }}
-        </div>
-      </div>
-      {% endfor %}
+        <button type="submit" class="btn btn-primary btn-block">Create Job</button>
+         <br></br>
 
-      <div class="form-group row">
-        <div class="offset-sm-2 col-sm-6">
-
-          <button type="submit" class="btn btn-primary">Create Job</button>
-
-        </div>
-      </div>
     </form>
   </div>
 

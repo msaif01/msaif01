@@ -1,5 +1,7 @@
 from django import  forms
 from .models import *
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
 
 class EquipmentForm(forms.ModelForm):
     class Meta:
