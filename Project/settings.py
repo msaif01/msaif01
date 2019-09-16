@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'django_tables2',
     'django_heroku',
+    'bootstrap4',
     'mems',
 ]
 
@@ -138,6 +139,4 @@ DJANGO_TABLES2_TEMPLATE = "django_tables2/bootstrap4.html"
 
 
 
-# Configure Django App for Heroku.
-import django_heroku
-django_heroku.settings(locals())
+
