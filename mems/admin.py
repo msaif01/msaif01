@@ -1,25 +1,26 @@
 from django.contrib import admin
 from .models import *
+from import_export.admin import ImportExportModelAdmin
 
 # Register your models here.
 @admin.register(Equipment)
-class ViewAdmin(admin.ModelAdmin):
+class ViewAdmin(ImportExportModelAdmin):
     pass
 
 @admin.register(Job)
-class ViewAdmin(admin.ModelAdmin):
+class ViewAdmin(ImportExportModelAdmin):
     pass
 
 @admin.register(Manufacturer)
-class ViewAdmin(admin.ModelAdmin):
+class ViewAdmin(ImportExportModelAdmin):
     pass
 
 @admin.register(Department)
-class ViewAdmin(admin.ModelAdmin):
+class ViewAdmin(ImportExportModelAdmin):
     pass
 
 
 @admin.register(Category)
-class ViewAdmin(admin.ModelAdmin):
+class ViewAdmin(ImportExportModelAdmin):
     pass
 

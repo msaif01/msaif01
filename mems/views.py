@@ -1,11 +1,13 @@
 from django.http import HttpResponse
+from mems.models import Manufacturer
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from .forms import *
-from django.views.generic import ListView
-import django_tables2 as SimpleTable
-from django_tables2 import SingleTableView
+from django.views import View
+from django.views.generic import ListView,DetailView
 from .tables import JobsTable
+from .filters import JobsFilter
+from dal import autocomplete
 
 def index(request):
     return render(request,'index.html')
@@ -62,7 +64,7 @@ def add_jobs(request):
         return render(request, 'add_jobs.html', {'form': form})
 
 
-def job_edit(request, job_number=None):
+def edit_job(request, job_number=None):
     instance = get_object_or_404(Job, job_number=job_number)
     form = JobsForm(request.POST or None, instance=instance)
     if form.is_valid():
@@ -78,7 +80,7 @@ def job_edit(request, job_number=None):
             "job_number": job_number,
 
         }
-    return render(request, "job_edit.html", context)
+    return render(request, "edit_job.html", context)
 
 def job_view(request,job_number=None):
     instance = get_object_or_404(Job, job_number=job_number)
@@ -90,8 +92,26 @@ def job_view(request,job_number=None):
     return render(request,"job_view.html", context)
 
 
-def table_view(request):
-    table = JobsTable(Job.objects.all())
-    table.paginate(page=request.GET.get("page", 1), per_page=50)
 
-    return render(request,"simple_list.html", {"table": table})
+
+class JobsListView(ListView):
+    model = Job
+    template_name = 'JobListView.html'
+
+    def get_context_data(self,**kwargs):
+         context = super().get_context_data(**kwargs)
+         context['filter'] = JobsFilter(self.request.GET , queryset=self.get_queryset())
+         return context
+
+
+
+
+# Autocomplete
+class ManufacturerAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+
+        qs = Manufacturer.objects.all()
+
+        if self.q:
+            qs = qs.filter(manufacturer_name__istartswith=self.q)
+        return qs

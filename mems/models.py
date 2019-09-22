@@ -4,13 +4,17 @@ from django.urls import reverse
 
 
 # Create your models here.
+from django.utils.datetime_safe import date
 
+class People(models.Model):
+    people_name = models.CharField(max_length=100)
+    def __str__(self):
+        return self.people_name
 
 class Manufacturer(models.Model):
-    manufacturer_name = models.CharField(max_length=30)
-    manufacturer_email = models.CharField(max_length=100)
-    manufacturer_number = models.CharField(max_length=30)
-    manufacturer_address = models.TextField()
+    manufacturer_name = models.CharField(max_length=100)
+    manufacturer_email = models.CharField(null=True, max_length=100)
+    manufacturer_number = models.CharField(null=True, max_length=50)
 
     def __str__(self):
         return self.manufacturer_name
@@ -52,11 +56,15 @@ class Category(models.Model):
 
 class Equipment(models.Model):
     asset_id = models.AutoField(max_length=6, primary_key=True)
-    serial_number = models.CharField(max_length=25, default='')
-    manufacturer = models.ForeignKey(Manufacturer, on_delete=models.CASCADE)
+    serial_number = models.CharField(max_length=25, default='', help_text="Enter Serial Number")
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    manufacturer = models.ForeignKey(Manufacturer, on_delete=models.CASCADE)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
     purchase_order = models.CharField(max_length=25, default='')
+    cost = models.IntegerField('Cost in GBP',default=0)
+    accepted_date = models.DateField("Accepted On", default=date.today)
+    warranty_expiry = models.DateField("Warranty Expiry", default=date.today)
+
 
     def __str__(self):
         return '{0}'.format(self.asset_id)
@@ -68,7 +76,7 @@ class Equipment(models.Model):
 class Job(models.Model):
     from datetime import date
 
-
+    blank = ''
     acceptance = 'Acceptance'
     acceptance_loan = 'Acceptance (Loan)'
     ppm = 'PPM'
@@ -77,6 +85,7 @@ class Job(models.Model):
     supply = 'Supply'
 
     JOB_TYPE_CHOICES = [
+        (blank,''),
         (acceptance, 'Acceptence'),
         (acceptance_loan, 'Acceptence Loan'),
         (ppm, 'PPM'),
@@ -85,6 +94,7 @@ class Job(models.Model):
         (supply, 'Supply')]
 
     JOB_TYPE_CHOICES = [
+        (blank , ''),
         (acceptance, 'Acceptence'),
         (acceptance_loan, 'Acceptence Loan'),
         (ppm, 'PPM'),
@@ -118,7 +128,7 @@ class Job(models.Model):
     job_status = models.CharField(max_length=30, choices=JOB_STATUS_CHOICES)
     job_date = models.DateField("Date", default=date.today)
     job_description = models.CharField(max_length=100, default='')
-    job_work_done = models.TextField(max_length=300, default='')
+    job_work_done = models.TextField(max_length=300, default='',blank=True)
     job_time_taken = models.IntegerField(choices=JOB_WORKDONE_TIME_CHOICES, default=0)
 
 
