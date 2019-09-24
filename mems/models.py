@@ -1,10 +1,11 @@
 from django.db import models
 import datetime
 from django.urls import reverse
-
-
-# Create your models here.
 from django.utils.datetime_safe import date
+from datetime import timedelta,timezone
+
+
+
 
 class People(models.Model):
     people_name = models.CharField(max_length=100)
@@ -53,24 +54,55 @@ class Category(models.Model):
     class Meta:
         ordering = ["category_name"]
 
+class Model(models.Model):
+    model_name = models.CharField(max_length=60, default='')
+
+    def __str__(self):
+        return self.model_name
+    class Meta:
+        ordering = ["model_name"]
+
 
 class Equipment(models.Model):
-    asset_id = models.AutoField(max_length=6, primary_key=True)
+
+   # warranty_expiry_date = date.today()+ timedelta(days=365)
+
+    #def get_warranty_expiry_date(self):
+     #   return Equipment.accepted_date() + timedelta(days=365)
+
+
+    blank = ''
+    active = 'Active'
+    decommusioned = 'Decommusioned'
+    lost = 'Lost'
+    ppm_due = 'PPM due'
+
+    EQUIPMENT_STATUS_CHOICES = [
+        (active, 'ACTIVE'),
+        (decommusioned, 'DECOMMUSIONED'),
+        (lost, 'LOST')]
+
+
+
+    asset_id = models.AutoField(max_length=9, primary_key=True)
     serial_number = models.CharField(max_length=25, default='', help_text="Enter Serial Number")
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     manufacturer = models.ForeignKey(Manufacturer, on_delete=models.CASCADE)
+    model = models.ForeignKey(Model, on_delete=models.CASCADE)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
     purchase_order = models.CharField(max_length=25, default='')
     cost = models.IntegerField('Cost in GBP',default=0)
     accepted_date = models.DateField("Accepted On", default=date.today)
-    warranty_expiry = models.DateField("Warranty Expiry", default=date.today)
+    warranty_expiry = models.DateField("Warranty Expiry")
+    equipment_status = models.CharField(max_length=20, choices=EQUIPMENT_STATUS_CHOICES, default='ACTIVE')
+    next_service_date = models.DateField("PPM Due", default=date.today)
 
 
     def __str__(self):
-        return '{0}'.format(self.asset_id)
-       # return 'asset_id : {0} serial_number : {1} manufacturer : {2} category : {3} department : {4} purchase_order'.format(
-        #    self.asset_id, self.serial_number, self.manufacturer, self.category, self.department, self.purchase_order)
+       return '{0}'.format(self.asset_id)
 
+       #return 'asset_id : {0} serial_number : {1} category : {2} manufacturer : {3} model : {4}  department : {5} purchase_order : {6} cost :{7} accepted_date :{8} warranty_expiry : {9} equipment_status : {10} next_service_date'.format(
+        #self.asset_id, self.serial_number, self.category,self.manufacturer, self.model, self.department, self.purchase_order, self.cost,self.accepted_date,self.warranty_expiry,self.equipment_status,self.next_service_date)
 
 
 class Job(models.Model):

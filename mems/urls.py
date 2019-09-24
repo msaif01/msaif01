@@ -15,4 +15,5 @@ url(r'^edit_job/(?P<job_number>\d+)/$', edit_job, name='edit_job'),
 url(r'^job_view/(?P<job_number>\d+)/$', job_view, name='job_view'),
 url(r'^JobListView$',JobsListView.as_view()),
 url(r'^manufacturer-autocomplete/$',ManufacturerAutocomplete.as_view(), name='manufacturer-autocomplete',),
+url(r'^equipment-autocomplete/$',EquipmentAutocomplete.as_view(), name='equipment-autocomplete',),
 ]

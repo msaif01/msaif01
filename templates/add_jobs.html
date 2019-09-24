@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block body %}
-    <br>
+{% load staticfiles%}
+
+<br>
 
     </br>
 <h1>Add New Job</h1>
@@ -14,16 +16,20 @@
     <form method="POST">
 
       {% csrf_token %}
+
 {{ form|crispy }}
+
       <h4>{{ header }}</h4>
 
-        <br></br>
+        <br>
 
         <button type="submit" class="btn btn-primary btn-block">Create Job</button>
-         <br></br>
+         <br><br><br><br>
 
     </form>
   </div>
-
-
+    <style>
+<script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
+    </style>
+{{ form.media }}
 {% endblock %}

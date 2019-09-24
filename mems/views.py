@@ -9,6 +9,7 @@ from .tables import JobsTable
 from .filters import JobsFilter
 from dal import autocomplete
 
+
 def index(request):
     return render(request,'index.html')
 
@@ -82,6 +83,9 @@ def edit_job(request, job_number=None):
         }
     return render(request, "edit_job.html", context)
 
+
+
+
 def job_view(request,job_number=None):
     instance = get_object_or_404(Job, job_number=job_number)
 
@@ -106,7 +110,9 @@ class JobsListView(ListView):
 
 
 
-# Autocomplete
+# Autocomplete Classes
+
+
 class ManufacturerAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
 
@@ -114,4 +120,14 @@ class ManufacturerAutocomplete(autocomplete.Select2QuerySetView):
 
         if self.q:
             qs = qs.filter(manufacturer_name__istartswith=self.q)
+        return qs
+
+
+class EquipmentAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+
+        qs = Equipment.objects.all()
+
+        if self.q:
+            qs = qs.filter(asset_id__istartswith=self.q)
         return qs

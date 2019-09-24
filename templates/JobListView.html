@@ -42,8 +42,11 @@
       <div class="row">
         <div class="form-group col-sm-4 col-md-3">
     <form method="get">
-      {{ filter.form.job_department }}</div>
-      </div>
+
+      {{ filter.form.job_department }}
+        {{ filter.form.job_status }}
+        </div>
+
 
         <button type="submit" class="btn btn-primary">Search</button>
     </form>
@@ -55,10 +58,10 @@
     <tr>
     <th>Job Number</th>
     <th>Asset Id</th>
-        <th>Job Type</th>
+    <th>Job Type</th>
     <th>Department</th>
     <th>Job Status</th>
-        <th> Date Created </th>
+    <th> Date Created </th>
 
 
 

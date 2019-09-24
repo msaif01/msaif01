@@ -6,11 +6,10 @@
     {% load static %}
 <link rel="stylesheet" href="{%  static '/css/style.css' %}">
 <link rel="stylesheet" href="{%  static '/css/bootstrap.min.css '%}">
-    {% load staticfiles %}
+
 <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}" />
 </head>
 
-{% load static %}
 <link rel="stylesheet" href="{%  static '/css/style.css' %}">
 <link rel="stylesheet" href="{%  static '/css/bootstrap.min.css '%}">
 
@@ -70,6 +69,62 @@
 
       </div>
     </nav>
+
+        <nav class="navbar navbar-expand-xl navbar-dark bg-dark fixed-bottom ">
+      <a class="navbar-brand" href="#">MEMS</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample06" aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExample06">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'display_equipment' %}">Home <span class="sr-only">(current)</span></a>
+          </li>
+           <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown06" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Equipment</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown06">
+              <a class="dropdown-item" href="{%  url 'add_equipment' %}">Add Equipment</a>
+              <a class="dropdown-item" href="#"></a>
+              <a class="dropdown-item" href="#">Something else here</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown06" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Jobs</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown06">
+              <a class="dropdown-item" href="{% url 'add_jobs' %}">Add Job</a>
+              <a class="dropdown-item" href="{% url 'display_jobs' %}">Display all jobs</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown06" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown06">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-md-0">
+          <input class="form-control" type="text" placeholder="Search">
+        </form>
+          <div class="padding">&nbsp;</div>
+          <div class="padding">&nbsp;</div>
+
+
+           <form class="form-inline my-2 my-md-0">
+          <input class="form-control" type="text" placeholder="Search">
+        </form>
+
+      </div>
+    </nav>
+
 <div class="container">
 {%  block body %}
 {%  endblock %}
