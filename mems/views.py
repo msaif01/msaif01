@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from mems.models import Manufacturer
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
@@ -11,67 +11,100 @@ from dal import autocomplete
 
 
 def index(request):
-    return render(request,'index.html')
+    return render(request, 'index.html')
 
 # Create your views here.
 
-def display_jobs(request):
-    jobs = Job.objects.all()
-    context = {
-        'jobs': jobs,
-        'header': 'Job',
-    }
-    return render(request, 'display_jobs.html', context)
 
 
+
+# ----------------VIEWS RELATED TO EQUIPMENT MODEL
 
 def display_equipment(request):
-    items = Equipment.objects.all()
+    equipments = Equipment.objects.all()
     context = {
-        'items': items,
+        'equipments': equipments,
         'header': Equipment,
     }
-    return render(request, 'index.html', context)
-
-def add_item(request, cls):
-    if request.method == "POST":
-        form = cls(request.POST)
-
-        if form.is_valid():
-            form.save()
-            return redirect('display_equipment')
-
-    else:
-        form = cls()
-        return render(request, 'add_equipment.html', {'form': form})
-
+    return render(request, 'EquipmentView.html', context)
 
 def add_equipment(request):
-    return add_item(request, EquipmentForm)
+    if request.method == "POST":
+        form = EquipmentForm(request.POST)
 
+        if form.is_valid():
+            equipment=form.save(commit=False)
+            equipment.save()
+            instance = equipment
+            return redirect('view_equipment', instance.asset_id)
+
+    else:
+        form = EquipmentForm()
+        return render(request, 'add_equipment.html', {'form': form})
+
+def view_equipment(request, asset_id=None):
+    instance = get_object_or_404(Equipment, asset_id=asset_id)
+    equipment_jobs = Job.objects.all().filter(equipment=asset_id)
+    context = {
+        'asset_id': asset_id,
+        'instance': instance,
+        'equipment_jobs': equipment_jobs,
+    }
+
+
+    return render(request, "view_equipment.html", context)
+
+
+
+def edit_equipment(request, asset_id=None):
+    instance = get_object_or_404(Equipment, asset_id=asset_id)
+    form = EquipmentForm(request.POST or None, instance=instance)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.save()
+        return redirect('view_equipment', asset_id)
+
+
+    context = {
+            "title": 'Edit ' + str(instance.asset_id),
+            "instance": instance,
+            "form": form,
+            "asset_id": asset_id,
+
+        }
+    return render(request, "edit_equipment.html", context)
+
+
+
+
+
+
+# ----------------VIEWS RELATED TO JOB MODEL
 
 def add_jobs(request):
     if request.method == 'POST':
-        form = JobsForm(request.POST)
+        form = JobsForm(request.POST, request.FILES)
 
         if form.is_valid():
           job = form.save(commit=False)
-          job.save()
+          form.save()
           instance = job
-          return redirect('job_view', instance.job_number)
+          return redirect('view_job' ,instance.job_number)
 
     else:
         form = JobsForm()
-        return render(request, 'add_jobs.html', {'form': form})
+    return render(request, 'add_jobs.html', {'form': form})
 
 
 def edit_job(request, job_number=None):
     instance = get_object_or_404(Job, job_number=job_number)
-    form = JobsForm(request.POST or None, instance=instance)
+    form = JobsForm(request.POST or request.FILES  or None, instance=instance)
     if form.is_valid():
         instance = form.save(commit=False)
+        form.save()
         instance.save()
-        return redirect('job_view', job_number)
+
+        return redirect('view_job', job_number)
 
 
     context = {
@@ -85,19 +118,17 @@ def edit_job(request, job_number=None):
 
 
 
-
-def job_view(request,job_number=None):
+def view_job(request, job_number=None):
     instance = get_object_or_404(Job, job_number=job_number)
-
+    instance.job_cost = (instance.job_time_taken*1)
     context = {
         'job_number': job_number,
         'instance': instance,
     }
-    return render(request,"job_view.html", context)
+    return render(request, "view_job.html", context)
 
 
-
-
+# JOBS LIST VIEW FOR FILTER
 class JobsListView(ListView):
     model = Job
     template_name = 'JobListView.html'
@@ -108,6 +139,18 @@ class JobsListView(ListView):
          return context
 
 
+def display_jobs(request):
+    jobs = Job.objects.all()
+    context = {
+        'jobs': jobs,
+        'header': 'Job',
+    }
+    return render(request, 'display_jobs.html', context)
+
+# DEPARTMENT VIEWS
+
+#def display_active_jobs(request):
+ #   jobs = Job.objects.all().filter(job_status__icontains=)
 
 
 # Autocomplete Classes
@@ -130,4 +173,13 @@ class EquipmentAutocomplete(autocomplete.Select2QuerySetView):
 
         if self.q:
             qs = qs.filter(asset_id__istartswith=self.q)
+        return qs
+
+class DepartmentAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+
+        qs = Department.objects.all()
+
+        if self.q:
+            qs = qs.filter(department_name__istartswith=self.q)
         return qs

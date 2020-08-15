@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'mems',
     'dal',
     'dal_select2',
     'django.contrib.admin',
@@ -44,7 +45,6 @@ INSTALLED_APPS = [
     'django_filters',
     'bootstrapform',
     'import_export',
-    'mems',
 ]
 
 MIDDLEWARE = [
@@ -71,6 +71,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -83,15 +84,19 @@ WSGI_APPLICATION = 'Project.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'memsdb',
-        'USER': 'root',
-        'PASSWORD': 'Microtel786',
+
+
+
+        'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'mems',
+        'USER': 'postgres',
+        'PASSWORD': 'asdf',
         'HOST': 'localhost',
-        'PORT': '3306'
-    }
+        'PORT': '5432',
+        }
 }
+
 
 
 
@@ -140,6 +145,19 @@ STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 DJANGO_TABLES2_TEMPLATE = "django_tables2/bootstrap4.html"
 
+ELASTICSEARCH_DSL = {
+    'default':{
+        'host': 'localhost:9200'
+    },
+}
 
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+
+# Redirect to home URL after login (Default redirects to /accounts/profile/)
+LOGIN_REDIRECT_URL = '/'
+
+#sends email password resent code to console
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

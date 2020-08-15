@@ -25,7 +25,7 @@ class EquipmentForm(forms.ModelForm):
         model = Equipment
 
 
-        fields = ('asset_id', 'serial_number', 'manufacturer','model','category','department','purchase_order','cost','accepted_date','warranty_expiry','equipment_status','next_service_date')
+        fields = ('asset_id','manufacturer', 'model','serial_number','department','purchase_order','cost','accepted_date','warranty_expiry','equipment_status','next_service_date')
         widgets = {'accepted_date': DateInput(),'warranty_expiry': DateInput(),'next_service_date':DateInput(),}
 
 
@@ -37,9 +37,12 @@ class JobsForm(forms.ModelForm):
                    queryset=Equipment.objects.all(),
                    widget=autocomplete.ModelSelect2(url='equipment-autocomplete'))
 
+
+
+
     class Meta:
         model = Job
 
 
-        fields = ('equipment', 'job_department', 'job_type', 'job_status', 'job_date', 'job_description', 'job_work_done','job_time_taken')
+        fields = ('equipment', 'job_department', 'job_type', 'job_status','person', 'job_date', 'job_description', 'job_work_done','stock','job_time_taken','job_sheet')
         widgets = {'job_date': DateInput()}

@@ -71,12 +71,12 @@
 <tbody>
 {%  for job in filter.qs %}
     <tr class="text-lg-left">
-        <td><a href="{% url 'job_view' job.pk %}">{{ job.pk }}</a></td>
-        <td><a href="{% url 'job_view' job.pk %}">{{ job.equipment }}</a></td>
-        <td><a href="{% url 'job_view' job.pk %}">{{ job.job_type }}</a></td>
-        <td><a href="{% url 'job_view' job.pk %}">{{ job.job_department }}</a></td>
-        <td><a href="{% url 'job_view' job.pk %}">{{ job.job_status }}</a></td>
-        <td><a href="{% url 'job_view' job.pk %}">{{ job.job_date }}</a></td>
+        <td><a href="{% url 'view_job' job.pk %}">{{ job.pk }}</a></td>
+        <td><a href="{% url 'view_job' job.pk %}">{{ job.equipment }}</a></td>
+        <td><a href="{% url 'view_job' job.pk %}">{{ job.job_type }}</a></td>
+        <td><a href="{% url 'view_job' job.pk %}">{{ job.job_department }}</a></td>
+        <td><a href="{% url 'view_job' job.pk %}">{{ job.job_status }}</a></td>
+        <td><a href="{% url 'view_job' job.pk %}">{{ job.job_date }}</a></td>
 
 
     </tr>

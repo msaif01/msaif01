@@ -36,3 +36,11 @@ class ViewAdmin(ImportExportModelAdmin):
 @admin.register(Model)
 class ViewAdmin(ImportExportModelAdmin):
     pass
+
+@admin.register(Person)
+class ViewAdmin(ImportExportModelAdmin):
+    pass
+
+@admin.register(Stock)
+class ViewAdmin(ImportExportModelAdmin):
+    pass

@@ -2,70 +2,39 @@
 {% load static %}
 {%  block body  %}
 <style>
-    input {max-width: 12em};
+    input {max-width: 8em};
 </style>
 
-
-<br></br>
  <div class="row">
-
-        <div class="col-sm-2 previous">
-         <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle btn-block" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Equipment
-            </button>
-             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                 <a class="dropdown-item" href="{% url 'add_equipment'  %}">Add new Equipment</a>
-                 <a class="dropdown-item" href="{% url 'display_equipment'  %}">View Equipment List</a>
-                 <a class="dropdown-item" href="#">Something else here</a>
-             </div>
-         </div>
-        </div>
-
-        <div class="col-sm-2 next">
-            <div class="dropdown">
-                 <button class="btn btn-secondary dropdown-toggle btn-block" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                 Jobs
-                 </button>
-                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                     <a class="dropdown-item" href="{% url 'add_jobs'  %}">Create New Job</a>
-                     <a class="dropdown-item" href="{% url 'display_jobs'  %}">View Jobs</a>
-                     <a class="dropdown-item" href="#">Something else here</a>
-                 </div>
-            </div>
-        </div>
-    </div>
-
-    <br></br>
+<br>
 <td><h1>All Jobs</h1></td>
-<br></br>
+<br>
 
-    <table id="table_id" class="table table-hover tab table-striped">
+    <table id="table_id" class="table table-hover table-striped nowrap cell-border" >
     <thead class="thead-dark">
     <tr>
     <th>Job Number</th>
     <th>Asset Id</th>
-        <th>Job Type</th>
+    <th>Job Type</th>
     <th>Department</th>
     <th>Job Status</th>
-        <th> Date Created </th>
-
-
-
+    <th> Date Created </th>
+    <th> Assigned</th>
+    <th> Job Sheet </th>
     </tr>
     </thead>
 
 <tbody>
 {%  for job in jobs %}
-    <tr class="text-lg-left">
-        <td><a href="{% url 'job_view' job.pk %}">{{ job.pk }}</a></td>
-        <td><a href="{% url 'job_view' job.pk %}">{{ job.equipment }}</a></td>
-        <td><a href="{% url 'job_view' job.pk %}">{{ job.job_type }}</a></td>
-        <td><a href="{% url 'job_view' job.pk %}">{{ job.job_department }}</a></td>
-        <td><a href="{% url 'job_view' job.pk %}">{{ job.job_status }}</a></td>
-        <td><a href="{% url 'job_view' job.pk %}">{{ job.job_date }}</a></td>
-
-
+    <tr>
+        <td><a href="{% url 'view_job' job.pk %}">{{ job.pk }}</a></td>
+        <td><a href="{% url 'view_job' job.pk %}">{{ job.equipment }}</a></td>
+        <td><a href="{% url 'view_job' job.pk %}">{{ job.job_type }}</a></td>
+        <td><a href="{% url 'view_job' job.pk %}">{{ job.job_department }}</a></td>
+        <td><a href="{% url 'view_job' job.pk %}">{{ job.job_status }}</a></td>
+        <td><a href="{% url 'view_job' job.pk %}">{{ job.job_date }}</a></td>
+        <td><a href="{% url 'view_job' job.pk %}">{{ job.person}}</a></td>
+        <td><a href="{% url 'view_job' job.pk %}">{{ job.job_sheet}}</a></td>
     </tr>
 {%  endfor %}
 
@@ -83,12 +52,13 @@
 $(document).ready( function() {
     $('#table_id').DataTable({
         dom: 'B<"clear">lfrtip',
+        "pageLength": 15,
         buttons: {
             name: 'primary',
             buttons: ['copy', 'csv', 'excel', 'pdf']
 
         }
-    });
+    })
 });
 </script>
     </div>

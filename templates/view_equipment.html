@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+
+
+  <div class="container">
+    <form method="POST">
+
+      {% csrf_token %}
+
+      <h4>{{ header }}</h4>
+        <br>
+        </br>
+ <span class="d-block p-2 bg-dark text-white text-center">Asset Id: {{ asset_id}} </span>
+ <span class="d-block p-2 bg-danger">Asset Status: {{ instance.equipment_status}} </span>
+
+
+    <a class="btn btn-primary btn-block ali" href="{% url 'edit_equipment' asset_id %}" role="button">Click to Edit Asset</a>
+        <div class="form-group row">
+        <div class="offset-sm-2 col-sm-6">
+
+
+        </div>
+      </div>
+<table class="table table-light table-striped table-hover">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr>
+      <th scope="row">Asset Id :</th>
+      <td>{{ instance.asset_id}}</td>
+  </tr>
+
+  <tr>
+      <th scope="row">Serial Number :</th>
+      <td>{{ instance.serial_number}}</td>
+  </tr>
+  <tr>
+      <th scope="row">Manufacturer :</th>
+      <td>{{ instance.manufacturer}}</td>
+  </tr>
+<tr>
+      <th scope="row">Model :</th>
+      <td>{{ instance.model}}</td>
+  </tr>
+
+
+  <tr>
+      <th scope="row">Department :</th>
+      <td>{{ instance.department}}</td>
+  </tr>
+
+  <tr>
+      <th scope="row">Status:</th>
+      <td>{{ instance.equipment_status}}</td>
+  </tr>
+
+  <tr>
+      <th scope="row">Date Created :</th>
+      <td>{{instance.accepted_date }}</td>
+  </tr>
+
+  <tr>
+      <th scope="row">Category:</th>
+      <td>{{ instance.category}}</td>
+  </tr>
+
+  <tr>
+      <th scope="row">Purchase Order :</th>
+      <td>{{instance.purchase_order }}</td>
+  </tr>
+
+  <tr>
+      <th scope="row">PPM due</th>
+      <td>{{instance.next_service_date}}</td>
+  </tr>
+  <tr>
+      <th scope="row">Warranty</th>
+        <td>{{instance.warranty_expiry }}</td>
+  </tr>
+
+
+
+
+  </tbody>
+</table>
+<br>
+ <table id="table_id" class="table table-hover tab table-striped">
+    <thead class="thead-dark">
+    <tr>
+    <th>Job Number</th>
+    <th>Current Status</th>
+        <th>Job Type</th>
+        <th> Date Created </th>
+
+
+
+    </tr>
+    </thead>
+
+<tbody>
+{%  for equipment_jobs in equipment_jobs %}
+    <tr class="text-lg-left">
+        <td><a href="{% url 'edit_job' equipment_jobs.pk %}">{{ equipment_jobs.pk }}</a></td>
+        <td><a href="{% url 'edit_job' equipment_jobs.pk %}">{{ equipment_jobs.job_status }}</a></td>
+        <td><a href="{% url 'edit_job' equipment_jobs.pk %}">{{ equipment_jobs.job_type }}</a></td>
+        <td><a href="{% url 'edit_job' equipment_jobs.pk %}">{{ equipment_jobs.job_date }}</a></td>
+
+
+
+
+    </tr>
+{%  endfor %}
+
+</tbody>
+    </table>
+
+    </form>
+  </div>
+
+
+{% endblock %}

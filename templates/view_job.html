@@ -12,9 +12,9 @@
       <h4>{{ header }}</h4>
         <br>
         </br>
- <span class="d-block p-2 bg-warning">Job Number: {{ job_number}} </span>
-         <span class="d-block p-2 bg-warning">Job Status: {{ instance.job_status}} </span>
-
+ <span class="d-block p-3 bg-warning text-center ">Job Number: {{ job_number}} </span>
+ <span class="d-block p-2 bg-danger">Job Status: {{ instance.job_status}} </span>
+ <span class="d-block p-2 bg-dark text-white">Assigned to: {{ instance.person}} </span>
     <a class="btn btn-primary btn-block ali" href="{% url 'edit_job' job_number %}" role="button">Click to Edit Job</a>
         <div class="form-group row">
         <div class="offset-sm-2 col-sm-6">
@@ -50,7 +50,7 @@
     </tr>
     <tr>
       <th scope="row">Equipment Id :</th>
-      <td width="900">{{instance.equipment }}</td>
+        <td><a href="{% url 'view_equipment' instance.equipment %}">{{instance.equipment }}</a></td>
     </tr>
         <tr>
       <th scope="row">Job Status :</th>
@@ -82,19 +82,24 @@
         <td><h6>{{instance.job_time_taken }}</h6></td>
     </tr>
     <tr>
+      <th scope="row">Job Cost</th>
+        <td><h6>{{instance.job_cost }}</h6></td>
+    </tr>
+
+    <tr>
       <th scope="row">Job Description</th>
       <td>{{instance.job_description }}</td>
     </tr>
   <tr>
       <th scope="row">Spares Used</th>
-      <td>{{instance.job_description }}</td>
+      <td>{{instance.stock}}</td>
     </tr>
+
   <tr>
-      <th scope="row">Job Cost</th>
-      <td>{{instance.job_description }}</td>
+
+      <th scope="row">Job Sheet</th>
+      <td><a href="{{ MEDIA_URL }}{{ instance.job_sheet }}">{{ instance.job_sheet }}</a></td>
     </tr>
-
-
 
   </tbody>
 </table>

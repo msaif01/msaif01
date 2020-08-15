@@ -17,5 +17,11 @@
         <property name="tinyInt1isBit" value="false" />
       </driver-properties>
     </data-source>
+    <data-source source="LOCAL" name="mems" uuid="024f13d6-83a5-443f-be4b-ad468f99f2fc">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/mems</jdbc-url>
+    </data-source>
   </component>
 </project>

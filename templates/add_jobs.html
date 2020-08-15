@@ -6,19 +6,15 @@
 <br>
 
     </br>
-<h1>Add New Job</h1>
+ <span class="d-block p-3 bg-dark text-white">Add New Job </span>
 <br>
 
-    </br>
-
-
   <div class="container">
-    <form method="POST">
+    <form method="POST" action="" enctype="multipart/form-data">
 
       {% csrf_token %}
 
-{{ form|crispy }}
-
+{{ form|crispy}}
       <h4>{{ header }}</h4>
 
         <br>
@@ -32,4 +28,5 @@
 <script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
     </style>
 {{ form.media }}
+
 {% endblock %}
