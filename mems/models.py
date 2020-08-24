@@ -1,3 +1,5 @@
+import itertools
+
 from django.db import models
 import datetime
 from django.urls import reverse
@@ -119,6 +121,10 @@ class Equipment(models.Model):
         #self.asset_id, self.serial_number, self.category,self.manufacturer, self.model, self.department, self.purchase_order,self.accepted_date,self.warranty_expiry,self.equipment_status,self.service_date,self.next_service_date)
 
 
+def generatejob():
+    return itertools.count(start=1450, step=1)
+
+
 class Job(models.Model):
     from datetime import date
 
@@ -165,6 +171,10 @@ class Job(models.Model):
         (completed_repair_service, 'Completed Repair and Service')
     ]
 
+
+
+
+
     JOB_WORKDONE_TIME_CHOICES = [(15,'15'),(30,'30'),(45,'45'),(60,'60'),(90,'90'),(120,'120'),(180,'180'),(240,'240')]
 
     job_number = models.AutoField(primary_key=True)
@@ -179,6 +189,9 @@ class Job(models.Model):
     person = models.ForeignKey(Person, on_delete=models.CASCADE, default=1)
     stock = models.ForeignKey(Stock, on_delete=models.CASCADE, default=3)
     job_sheet = models.FileField(blank=True)
+
+    def natural_key(self):
+        return self.my_natural_key
 
     def __str__(self):
         return 'job_number : {0} equipment : {1} job_department : {2} job_type : {3} job_status : {4} job_description : {5} job_work_done : {6} person_name: {7} job_time_taken: {8} stock'.format(

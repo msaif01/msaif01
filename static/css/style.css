@@ -17,7 +17,7 @@
 }
 
 .select2-container {
-  box-sizing: border-box;
+  box-sizing: inherit;
   display: inline-block;
   margin: 0;
   position: relative;
@@ -43,6 +43,15 @@
       height: 34px !important;
       user-select: none;
       -webkit-user-select: none; }
+
+@media screen and (max-width: 600px) {
+  .col-25, .col-75, .select2-container .select2-selection--single .select2-selection__rendered ,
+  .select2-container .select2-selection--single ,.select2-container
+  {
+    width: 50%;
+    margin-top: 0;
+  }
+}
 
 
 .nav-side-menu {
