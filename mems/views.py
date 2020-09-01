@@ -92,7 +92,10 @@ def add_jobs(request):
           job = form.save(commit=False)
           form.save()
           instance = job
-          return redirect('view_job' ,instance.job_number)
+          if job.job_status == 'Serviced':
+              job.equipment.service_date = job.job_date
+
+          return redirect('view_job', instance.job_number)
 
     else:
         form = JobsForm()
@@ -151,14 +154,15 @@ def view_job(request, job_number=None):
    # context = {'suppliers_all': suppliers_all,
     #return HttpResponse(suppliers_all, content_type='application/json')
 
+
+
 def display_jobs(request):
-    jobs = Job.objects.values()
+    jobs = Job.objects.all()
     context = {
         'jobs': jobs,
         'header': 'Job',
     }
     return render(request, 'display_jobs.html', context)
-
 
 
 #def display_jobs(request):
@@ -265,7 +269,8 @@ def department_dashboard(request, id=None):
     instance = get_object_or_404(Department, id=id)
     assets = Equipment.objects.filter(department_id=instance)
     assets_count = Equipment.objects.filter(department_id=instance).count()
-    jobs = Job.objects.filter(job_department_id=instance).count()
+    jobs = Job.objects.filter(job_department_id=instance).exclude(job_status__icontains='Completed').count()
+
     context = {
         'id': id,
         'instance': instance,

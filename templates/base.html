@@ -74,9 +74,9 @@
              <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown06" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Department</a>
                <div class="dropdown-menu" aria-labelledby="dropdown06">
-                 <a class="dropdown-item" href="#">Action</a>
-                 <a class="dropdown-item" href="#">Another action</a>
-                 <a class="dropdown-item" href="#">Something else here</a>
+                 <a class="dropdown-item" href="{% url 'department_view' %}">Equipment by Department</a>
+                 <a class="dropdown-item" href="#">Jobs by Department</a>
+                 <a class="dropdown-item" href="#">Department by locations</a>
                </div>
              </li>
 
@@ -122,10 +122,11 @@
           <input class="search-label-icon" type="text" placeholder="Search Equipment">
         </form>
 
-             <div class="text-white"style="padding-left:100px">
+             <div class="text-white"style="padding-left:400px">
                 {% if user.is_authenticated %}
 
                     <li><a href="{% url 'logout'%}?next={{request.path}}" title="Click to Logout" style="color: whitesmoke">Logout</a></li>
+                    <h4>{{ user.get_username }}</h4>
                 {% else %}
                     <li><a href="{% url 'login'%}?next={{request.path}}"title="Click to Login" style="color: whitesmoke">Login</a></li>
                 {% endif %}

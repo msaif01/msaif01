@@ -155,6 +155,7 @@ class Job(models.Model):
         (supply, 'Supply'),
     ]
 
+    reported = 'Reported'
     created = 'Created'
     in_progress = 'In progress'
     completed_acceptance = 'Completed (Acceptance)'
@@ -163,6 +164,7 @@ class Job(models.Model):
     completed_repair_service = 'Completed (Repair & Service)'
 
     JOB_STATUS_CHOICES = [
+        (reported, 'Reported'),
         (created, 'Created'),
         (in_progress, 'In progress'),
         (completed_acceptance, 'Completed Acceptance'),
@@ -185,6 +187,7 @@ class Job(models.Model):
     job_date = models.DateField("Date", default=date.today)
     job_description = models.CharField(max_length=100, default='')
     job_work_done = models.TextField(max_length=300, default='',blank=True)
+    job_service_done = models.BooleanField()
     job_time_taken = models.IntegerField(choices=JOB_WORKDONE_TIME_CHOICES, default=0)
     person = models.ForeignKey(Person, on_delete=models.CASCADE, default=1)
     stock = models.ForeignKey(Stock, on_delete=models.CASCADE, default=3)
@@ -194,8 +197,8 @@ class Job(models.Model):
         return self.my_natural_key
 
     def __str__(self):
-        return 'job_number : {0} equipment : {1} job_department : {2} job_type : {3} job_status : {4} job_description : {5} job_work_done : {6} person_name: {7} job_time_taken: {8} stock'.format(
-        self.job_number, self.equipment, self.job_department, self.job_type, self.job_status, self.job_description, self.job_work_done, self.person, int(self.job_time_taken),self.stock)
+        return 'job_number : {0} equipment : {1} job_department : {2} job_type : {3} job_status : {4} job_description : {5} job_work_done : {6} job_service_done : {7} person_name: {8} job_time_taken: {9} stock'.format(
+        self.job_number, self.equipment, self.job_department, self.job_type, self.job_status, self.job_description, self.job_work_done,self.job_service_done, self.person, int(self.job_time_taken),self.stock)
 
 
 

@@ -52,6 +52,23 @@
       <th scope="row">Equipment Id :</th>
         <td><a href="{% url 'view_equipment' instance.equipment %}">{{instance.equipment }}</a></td>
     </tr>
+    <tr>
+      <th scope="row">Equipment Type :</th>
+        <td>{{instance.equipment.category}}</td>
+    </tr>
+
+
+    <tr>
+      <th scope="row">Manufacturer :</th>
+        <td>{{instance.equipment.manufacturer }}</td>
+    </tr>
+     <tr>
+      <th scope="row">Model :</th>
+        <td>{{instance.equipment.model }}</td>
+    </tr>
+
+
+
         <tr>
       <th scope="row">Job Status :</th>
       <td>{{ instance.job_status}}</td>
