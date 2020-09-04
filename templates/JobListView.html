@@ -44,7 +44,7 @@
     <form method="get">
 
       {{ filter.form.job_department }}
-        {{ filter.form.job_status }}
+        {{ filter.form.job_current_status }}
         </div>
 
 
@@ -75,7 +75,7 @@
         <td><a href="{% url 'view_job' job.pk %}">{{ job.equipment }}</a></td>
         <td><a href="{% url 'view_job' job.pk %}">{{ job.job_type }}</a></td>
         <td><a href="{% url 'view_job' job.pk %}">{{ job.job_department }}</a></td>
-        <td><a href="{% url 'view_job' job.pk %}">{{ job.job_status }}</a></td>
+        <td><a href="{% url 'view_job' job.pk %}">{{ job.job_current_status }}</a></td>
         <td><a href="{% url 'view_job' job.pk %}">{{ job.job_date }}</a></td>
 
 

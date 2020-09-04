@@ -107,7 +107,7 @@
 {%  for equipment_jobs in equipment_jobs %}
     <tr class="text-lg-left">
         <td><a href="{% url 'edit_job' equipment_jobs.pk %}">{{ equipment_jobs.pk }}</a></td>
-        <td><a href="{% url 'edit_job' equipment_jobs.pk %}">{{ equipment_jobs.job_status }}</a></td>
+        <td><a href="{% url 'edit_job' equipment_jobs.pk %}">{{ equipment_jobs.job_current_status }}</a></td>
         <td><a href="{% url 'edit_job' equipment_jobs.pk %}">{{ equipment_jobs.job_type }}</a></td>
         <td><a href="{% url 'edit_job' equipment_jobs.pk %}">{{ equipment_jobs.job_date }}</a></td>
 

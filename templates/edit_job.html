@@ -1,67 +1,40 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block body %}
 
-{%  extends 'base.html' %}
-{% load static %}
-{%  block body  %}
-<style>
-    input {max-width: 8em};
-</style>
 
- <div class="row">
+
+
+  <div class="container">
+     <form method="POST" action="" enctype="multipart/form-data">
+
+
+      {% csrf_token %}
+
+      <h4>{{ header }}</h4>
+        <br>
+    <span class="d-block p-2 bg-warning text-center">Edit Job Number: {{ job_number}}</span>
+
+        <span class="d-block p-2 bg-danger">Current Status : {{ instance.job_status }}</span>
+        <span class="d-block p-2 bg-dark text-white">Assigned to :{{instance.person}}</span>
 <br>
-<td><h1>All Jobs</h1></td>
-<br>
+{{ form|crispy }}
 
-    <table id="table_id" class="table table-hover table-striped nowrap cell-border" >
-    <thead class="thead-dark">
-    <tr>
-    <th>Job Number</th>
-    <th>Asset Id</th>
-    <th>Job Type</th>
-    <th>Department</th>
-    <th>Job Status</th>
-    <th> Date Created </th>
-    <th> Assigned</th>
-    <th> Job Sheet </th>
-    </tr>
-    </thead>
+    <br>
 
-<tbody>
-{%  for job in jobs %}
-    <tr>
-        <td><a href="{% url 'view_job' job.pk %}">{{ job.pk }}</a></td>
-        <td><a href="{% url 'view_job' job.pk %}">{{ job.equipment }}</a></td>
-        <td><a href="{% url 'view_job' job.pk %}">{{ job.job_type }}</a></td>
-        <td><a href="{% url 'view_job' job.pk %}">{{ job.job_department }}</a></td>
-        <td><a href="{% url 'view_job' job.pk %}">{{ job.job_status }}</a></td>
-        <td><a href="{% url 'view_job' job.pk %}">{{ job.job_date }}</a></td>
-        <td><a href="{% url 'view_job' job.pk %}">{{ job.person}}</a></td>
-        <td><a href="{% url 'view_job' job.pk %}">{{ job.job_sheet}}</a></td>
-    </tr>
-{%  endfor %}
+        </br>
 
-</tbody>
-    </table>
-{%  endblock %}
-{% block js %}
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.18/af-2.3.3/b-1.5.6/b-colvis-1.5.6/b-html5-1.5.6/b-print-1.5.6/cr-1.5.0/fc-3.2.5/fh-3.1.4/kt-2.5.0/r-2.2.2/rg-1.1.0/rr-1.2.4/sc-2.0.0/sl-1.3.0/datatables.min.css"/>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.18/af-2.3.3/b-1.5.6/b-colvis-1.5.6/b-html5-1.5.6/b-print-1.5.6/cr-1.5.0/fc-3.2.5/fh-3.1.4/kt-2.5.0/r-2.2.2/rg-1.1.0/rr-1.2.4/sc-2.0.0/sl-1.3.0/datatables.min.js"></script>
+      <div class="form-group row">
+        <div class="offset-sm-2 col-sm-6">
 
-<script>
-$(document).ready( function() {
-    $('#table_id').DataTable({
-        dom: 'B<"clear">lfrtip',
-        "pageLength": 15,
-        buttons: {
-            name: 'primary',
-            buttons: ['copy', 'csv', 'excel', 'pdf']
+          <button type="submit" class="btn btn-primary btn-block">Update Job</button>
 
-        }
-    })
-});
-</script>
-    </div>
+        </div>
+      </div>
+        <br><br><br><br>
+    </form>
+  </div>
 
-{% endblock js %}
+
+{% endblock %}

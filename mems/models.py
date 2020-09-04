@@ -4,7 +4,6 @@ from django.db import models
 import datetime
 from django.urls import reverse
 from django.utils.datetime_safe import date
-
 from datetime import timedelta,timezone
 from dateutil.relativedelta import relativedelta
 
@@ -47,14 +46,14 @@ class Department(models.Model):
     class Meta:
         ordering = ["department_name"]
 
-class Stock(models.Model):
-  stock_number = models.CharField(max_length=50)
-  stock_description = models.CharField(max_length=50)
-  stock_price = models.FloatField()
-  stock_quantity = models.IntegerField()
+#class Stock(models.Model):
+ #  stock_number = models.CharField(max_length=50)
+  # stock_description = models.CharField(max_length=50)
+   #stock_price = models.FloatField()
+   #stock_quantity = models.IntegerField()
 
-  def __str__(self):
-      return 'STOCK ID:{0}    DESCRIPTION:{1}    PRICE:'.format(self.stock_number, self.stock_description,self.stock_price)
+   #def __str__(self):
+    #  return 'STOCK ID:{0}    DESCRIPTION:{1}    PRICE:'.format(self.stock_number, self.stock_description,self.stock_price)
 
 
 class Category(models.Model):
@@ -184,21 +183,22 @@ class Job(models.Model):
     job_type = models.CharField(max_length=20, choices=JOB_TYPE_CHOICES, default='Repair')
     job_department = models.ForeignKey(Department, on_delete=models.CASCADE)
     job_status = models.CharField(max_length=30, choices=JOB_STATUS_CHOICES, default='CREATED')
+    job_final_status = models.CharField(max_length=20,default='In Progress')
     job_date = models.DateField("Date", default=date.today)
     job_description = models.CharField(max_length=100, default='')
     job_work_done = models.TextField(max_length=300, default='',blank=True)
-    job_service_done = models.BooleanField()
+    job_service_done = models.BooleanField(default=False)
     job_time_taken = models.IntegerField(choices=JOB_WORKDONE_TIME_CHOICES, default=0)
     person = models.ForeignKey(Person, on_delete=models.CASCADE, default=1)
-    stock = models.ForeignKey(Stock, on_delete=models.CASCADE, default=3)
     job_sheet = models.FileField(blank=True)
+    #stock = models.ForeignKey(Stock, on_delete=models.CASCADE)
 
     def natural_key(self):
         return self.my_natural_key
 
     def __str__(self):
-        return 'job_number : {0} equipment : {1} job_department : {2} job_type : {3} job_status : {4} job_description : {5} job_work_done : {6} job_service_done : {7} person_name: {8} job_time_taken: {9} stock'.format(
-        self.job_number, self.equipment, self.job_department, self.job_type, self.job_status, self.job_description, self.job_work_done,self.job_service_done, self.person, int(self.job_time_taken),self.stock)
+        return 'job_number : {0} equipment : {1} job_department : {2} job_type : {3} job_status : {4} job_description : {5} job_work_done : {6} job_service_done : {7} person_name: {8} job_time_taken : {9} job_final_status :'.format(
+        self.job_number, self.equipment, self.job_department, self.job_type, self.job_status, self.job_description, self.job_work_done,self.job_service_done, self.person, int(self.job_time_taken),self.job_final_status)
 
 
 

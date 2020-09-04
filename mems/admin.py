@@ -41,6 +41,3 @@ class ViewAdmin(ImportExportModelAdmin):
 class ViewAdmin(ImportExportModelAdmin):
     pass
 
-@admin.register(Stock)
-class ViewAdmin(ImportExportModelAdmin):
-    pass

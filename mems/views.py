@@ -14,6 +14,8 @@ from django.http import HttpResponse
 from django.http import JsonResponse
 import json
 from django.db.models import Count
+from datetime import datetime
+
 
 def index(request):
     return render(request, 'index.html')
@@ -92,7 +94,7 @@ def add_jobs(request):
           job = form.save(commit=False)
           form.save()
           instance = job
-          if job.job_status == 'Serviced':
+          if job.job_final_status == 'Serviced':
               job.equipment.service_date = job.job_date
 
           return redirect('view_job', instance.job_number)
@@ -269,7 +271,21 @@ def department_dashboard(request, id=None):
     instance = get_object_or_404(Department, id=id)
     assets = Equipment.objects.filter(department_id=instance)
     assets_count = Equipment.objects.filter(department_id=instance).count()
-    jobs = Job.objects.filter(job_department_id=instance).exclude(job_status__icontains='Completed').count()
+    jobs = Job.objects.filter(job_department_id=instance).exclude(job_status__icontains='Completed')
+    count_jobs_pending = Job.objects.filter(job_department_id=instance).exclude(job_status__icontains='Completed').count()
+
+
+    #next_ppm = Equipment.objects.filter(department_id=instance).filter(next_service_date__year=date.today().year)
+
+   # delta = date.today() - date(Equipment.next_service_date)
+    #ppm_days = delta.days
+
+
+
+   # d0 = date.today()
+    #d1 = Equipment.next_service_date
+    #delta = d0 - d1
+    #ppm_days = delta.days
 
     context = {
         'id': id,
@@ -278,6 +294,8 @@ def department_dashboard(request, id=None):
         'assets': assets,
         'header': Equipment,
         'jobs': jobs,
+        'count_jobs_pending':count_jobs_pending,
+
     }
     return render(request, 'department_dashboard.html',context)
 
