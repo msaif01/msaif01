@@ -8,7 +8,7 @@ from django.conf import settings
 
 urlpatterns = [
 url(r'^$',index,name='index'),
-url(r'^display_equipment$', display_equipment, name="display_equipment"),
+url(r'^display_equipments$', display_equipments, name="display_equipments"),
 url(r'^display_jobs$', display_jobs, name="display_jobs"),
 
 url(r'^display_jobs_json/$', display_jobs_json, name="display_jobs_json"),

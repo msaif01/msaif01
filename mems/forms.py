@@ -44,5 +44,5 @@ class JobsForm(forms.ModelForm):
         model = Job
 
 
-        fields = ('equipment', 'job_department', 'job_type', 'job_status', 'person', 'job_date', 'job_description', 'job_work_done', 'job_service_done', 'job_time_taken', 'job_sheet')
-        widgets = {'job_date': DateInput()}
+        fields = ('equipment', 'job_department', 'job_type', 'job_status', 'person', 'job_date', 'job_description', 'job_work_done', 'job_service_done', 'job_time_taken', 'job_finished_date','job_sheet')
+        widgets = {'job_date': DateInput(), 'job_finished_date': DateInput() }

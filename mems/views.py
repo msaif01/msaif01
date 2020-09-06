@@ -27,13 +27,13 @@ def index(request):
 
 # ----------------VIEWS RELATED TO EQUIPMENT MODEL
 
-def display_equipment(request):
+def display_equipments(request):
     equipments = Equipment.objects.all()
     context = {
         'equipments': equipments,
         'header': Equipment,
     }
-    return render(request, 'EquipmentView.html', context)
+    return render(request, 'display_equipments', context)
 
 def add_equipment(request):
     if request.method == "POST":
@@ -94,8 +94,10 @@ def add_jobs(request):
           job = form.save(commit=False)
           form.save()
           instance = job
-          if job.job_final_status == 'Serviced':
-              job.equipment.service_date = job.job_date
+
+          if instance.job_service_done == 'TRUE':
+              Equipment.objects.filter(pk=instance.asset_id).update(service_date=job.job_finished_date)
+
 
           return redirect('view_job', instance.job_number)
 

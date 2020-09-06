@@ -111,6 +111,8 @@ class Equipment(models.Model):
     equipment_status = models.CharField(max_length=20,choices=EQUIPMENT_STATUS_CHOICES, default='ACTIVE')
     service_date = models.DateField("Serviced on", default=date.today)
     next_service_date = models.DateField("PPM Due", default=date.today)
+    ppm_due_days = models.IntegerField("PPM Due in Days", default=365)
+    ppm_due_months = models.IntegerField("PPM due in Months", default=12)
 
 
     def __str__(self):
@@ -119,6 +121,13 @@ class Equipment(models.Model):
        #return 'asset_id : {0} serial_number : {1} category : {2} manufacturer : {3} model : {4}  department : {5} purchase_order : {6} accepted_date :{7} warranty_expiry : {8} equipment_status : {9} service_date :{10} next_service_date'.format(
         #self.asset_id, self.serial_number, self.category,self.manufacturer, self.model, self.department, self.purchase_order,self.accepted_date,self.warranty_expiry,self.equipment_status,self.service_date,self.next_service_date)
 
+
+class Service(models.Model):
+    asset_id = models.ForeignKey(Equipment, on_delete=models.CASCADE)
+    serviced_on = models.DateField()
+
+    def __str__(self):
+       return '{0}'.format(self.asset_id)
 
 def generatejob():
     return itertools.count(start=1450, step=1)
@@ -184,7 +193,8 @@ class Job(models.Model):
     job_department = models.ForeignKey(Department, on_delete=models.CASCADE)
     job_status = models.CharField(max_length=30, choices=JOB_STATUS_CHOICES, default='CREATED')
     job_final_status = models.CharField(max_length=20,default='In Progress')
-    job_date = models.DateField("Date", default=date.today)
+    job_date = models.DateField("Job created on", default=date.today)
+    job_finished_date = models.DateField("Job finished on", default=date.today)
     job_description = models.CharField(max_length=100, default='')
     job_work_done = models.TextField(max_length=300, default='',blank=True)
     job_service_done = models.BooleanField(default=False)
