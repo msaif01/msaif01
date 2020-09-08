@@ -5,16 +5,8 @@
 {%  block body  %}
 
 <br>
-    <style>
-div.container {
-  position: relative;
-    width : 200%;
-  left: -170px;
-    top : -26px;
-  border: 0px solid #73AD21;
 
-}
-</style>
+
 <p></p>
     <div class="container wide" ><td><h1>Departments</h1></td>
 
@@ -65,7 +57,7 @@ $(document).ready( function() {
         // Setup - add a text input to each footer cell
     $('#table_id tfoot th').each( function () {
         var title = $(this).text();
-        $(this).html( '<input type="text"  size = "15" placeholder="'+"Search"+'" />' );
+        $(this).html( '<input type="text"  size = "40" placeholder="'+"Search"+'" />' );
     } );
 
 

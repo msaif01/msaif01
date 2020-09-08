@@ -55,6 +55,11 @@
       <td>{{ instance.department}}</td>
   </tr>
 
+    <tr>
+      <th scope="row">Department Risk Score :</th>
+      <td>{{ instance.department.department_risk_score}}</td>
+  </tr>
+
   <tr>
       <th scope="row">Status:</th>
       <td>{{ instance.equipment_status}}</td>
@@ -70,18 +75,35 @@
       <td>{{ instance.category}}</td>
   </tr>
 
+   <tr>
+      <th scope="row">Category:</th>
+      <td>{{ instance.category.category_risk_score}}</td>
+  </tr>
+
   <tr>
       <th scope="row">Purchase Order :</th>
       <td>{{instance.purchase_order }}</td>
   </tr>
 
+    <tr>
+      <th scope="row">Serviced On</th>
+      <td>{{instance.service_date}}</td>
+  </tr>
+
+
   <tr>
       <th scope="row">PPM due</th>
       <td>{{instance.next_service_date}}</td>
   </tr>
+
   <tr>
       <th scope="row">Warranty</th>
         <td>{{instance.warranty_expiry }}</td>
+  </tr>
+
+    <tr>
+      <th scope="row">Risk Score :</th>
+      <td>{{ instance.risk_score}}</td>
   </tr>
 
 

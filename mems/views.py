@@ -1,6 +1,6 @@
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http import HttpResponseRedirect
-from mems.models import Manufacturer
+from mems.models import Equipment,Job
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from .forms import *
@@ -14,7 +14,11 @@ from django.http import HttpResponse
 from django.http import JsonResponse
 import json
 from django.db.models import Count
-from datetime import datetime
+import datetime
+from datetime import timedelta
+from django.db.models import F
+from django.utils.datetime_safe import date
+
 
 
 def index(request):
@@ -41,8 +45,24 @@ def add_equipment(request):
 
         if form.is_valid():
             equipment=form.save(commit=False)
+            equipment.category_id = equipment.model.model_category_id
+            equipment.risk_score = equipment.category.category_risk_score+equipment.department.department_risk_score
+            if equipment.risk_score > 6:
+                equipment.ppm_intervel = 180
+            else: equipment.ppm_intervel = 365
+            equipment.next_service_date = equipment.accepted_date + datetime.timedelta(days=equipment.ppm_intervel)
+            delta = (equipment.next_service_date - equipment.accepted_date).days
+            equipment.ppm_due_days = delta
+
             equipment.save()
             instance = equipment
+
+            i = Equipment.objects.get(pk = instance.asset_id)
+            i.risk_score = i.category.category_risk_score+i.department.department_risk_score
+            i.save()
+
+
+
             return redirect('view_equipment', instance.asset_id)
 
     else:
@@ -92,14 +112,26 @@ def add_jobs(request):
 
         if form.is_valid():
           job = form.save(commit=False)
-          form.save()
           instance = job
+          form.save()
 
-          if instance.job_service_done == 'TRUE':
-              Equipment.objects.filter(pk=instance.asset_id).update(service_date=job.job_finished_date)
+          if (instance.job_service_done==True):
+           device= Equipment.objects.get(pk=instance.equipment_id)
+           device.service_date = instance.job_finished_date
+           device.save()
 
 
-          return redirect('view_job', instance.job_number)
+
+
+
+
+              #asset_update_service= Equipment.objects.get(pk,instance.equipment_id)
+              #asset_update_service.service_date= F(instance.job_finished_date)
+              #asset_update_service.save()
+           # Equipment.objects.filter(pk=instance.equipment_id).update(service_date=instance.job_finished_date)
+
+
+        return redirect('view_job', instance.job_number)
 
     else:
         form = JobsForm()
@@ -113,6 +145,11 @@ def edit_job(request, job_number=None):
         instance = form.save(commit=False)
         form.save()
         instance.save()
+
+        if (instance.job_service_done == True):
+            device = Equipment.objects.get(pk=instance.equipment_id)
+            device.service_date = instance.job_finished_date
+            device.save()
 
         return redirect('view_job', job_number)
 
@@ -273,8 +310,8 @@ def department_dashboard(request, id=None):
     instance = get_object_or_404(Department, id=id)
     assets = Equipment.objects.filter(department_id=instance)
     assets_count = Equipment.objects.filter(department_id=instance).count()
-    jobs = Job.objects.filter(job_department_id=instance).exclude(job_status__icontains='Completed')
-    count_jobs_pending = Job.objects.filter(job_department_id=instance).exclude(job_status__icontains='Completed').count()
+    jobs = Job.objects.filter(job_department_id=instance).exclude(job_final_status__contains='Completed')
+    count_jobs_pending = Job.objects.filter(job_department_id=instance).exclude(job_final_status__contains='Completed').count()
 
 
     #next_ppm = Equipment.objects.filter(department_id=instance).filter(next_service_date__year=date.today().year)

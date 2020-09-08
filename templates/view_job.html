@@ -14,6 +14,7 @@
         </br>
  <span class="d-block p-3 bg-warning text-center ">Job Number: {{ job_number}} </span>
  <span class="d-block p-2 bg-danger">Job Status: {{ instance.job_status }} </span>
+ <span class="d-block p-2 bg-danger">Job Final Status: {{ instance.job_final_status }} </span>
  <span class="d-block p-2 bg-dark text-white">Assigned to: {{ instance.person}} </span>
     <a class="btn btn-primary btn-block ali" href="{% url 'edit_job' job_number %}" role="button">Click to Edit Job</a>
         <div class="form-group row">
