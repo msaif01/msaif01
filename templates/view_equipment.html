@@ -3,14 +3,17 @@
 {% block body %}
 
 
+
+
     <div class="container" xmlns="http://www.w3.org/1999/html">
     <form method="POST">
 
       {% csrf_token %}
 
       <h4>{{ header }}</h4>
-        <br>
-        </br>
+        {% if instance.ppm_due_days <= 0 %}
+         <h5 style="color: red">PPM Overdue</h5>
+        {% endif %}
         <span class="d-block p-2 "style="background-color: #4e555b; color: white ;text-align: center"><h2>{{ asset_id}}</h2> </span>
 
 <br>
@@ -21,7 +24,7 @@
 
 
         <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne"
-          aria-expanded="true" aria-controls="collapseOne" style="background-color: #18bc9c; color: black">
+          aria-expanded="true" aria-controls="collapseOne" style="background-color: #18bc9c; color: #263238">
          <h5>Asset Details</h5>
         </button>
 
@@ -70,7 +73,7 @@
 
 
         <button class="btn btn-link" type="button" data-toggle="collapse"
-          data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo" style="background-color: #18bc9c; color: black">
+          data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo" style="background-color: #18bc9c; color: #263238">
           <h5>Department</h5>
         </button>
 
@@ -94,7 +97,7 @@
 
         <button class="btn btn-link" type="button" data-toggle="collapse"
           data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree"
-         style="background-color: #18bc9c; color: black">
+         style="background-color: #18bc9c; color: #263238">
             <h5>Acceptence details</h5>
         </button>
 
@@ -111,7 +114,7 @@
   </tr>
           <tr>
       <th width="450"style="background-color: #4e555b; color: white"><h5>Cost :</h5></th>
-        <td><h6>£{{instance.cost }}</h6></td>
+        <td><h6>£ {{instance.cost }}</h6></td>
   </tr>
 
           <tr>
@@ -128,7 +131,7 @@
 
 
         <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseFour"
-          aria-expanded="true" aria-controls="collapseFour" style="background-color: #18bc9c; color: black">
+          aria-expanded="true" aria-controls="collapseFour" style="background-color: #18bc9c; color: #263238">
             <h5>Planned Maintenance</h5>
         </button>
 
@@ -148,9 +151,14 @@
       <td><h6>{{instance.next_service_date }}</h6></td>
       </tr>
 
-      <tr>
+      <tr class="ppm_due_days">
       <th width="450"style="background-color: #4e555b; color: white"><h5>Days to next service :</h5></th>
-      <td><h6>{{instance.ppm_due_days }} days</h6></td>
+           {% if instance.ppm_due_days <= 0 %}
+          <td ppm_due_days><h6 style="color: red">{{instance.ppm_due_days }} days</h6></td>
+               {% else %}
+          <td ppm_due_days><h6>{{instance.ppm_due_days }} days</h6></td>
+          {% endif %}
+
       </tr>
 
 
@@ -166,8 +174,8 @@
 
 
         <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseFive"
-          aria-expanded="true" aria-controls="collapseFive" style="background-color: #18bc9c; color: black">
-            <h5>Risk Assesment</h5>
+          aria-expanded="true" aria-controls="collapseFive" style="background-color: #18bc9c; color: #263238">
+            <h5>Risk Assessment</h5>
         </button>
 
 
@@ -211,7 +219,7 @@
     </tr>
     </thead>
 
-<span class="d-block p-2 "style="background-color: #18bc9c; color: black ;text-align: center"><h5>Job History</h5> </span>
+<span class="d-block p-2 "style="background-color: #18bc9c; color: #263238 ;text-align: center"><h5>Job History</h5> </span>
 
 <tbody>
 {%  for equipment_jobs in equipment_jobs %}
@@ -229,9 +237,10 @@
 
 </tbody>
     </table>
+    </form>
   </div>
 
-    </form>
+
     </div>
 
 

@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
-{% block body %}
 {% load staticfiles%}
+{% block body %}
 
-<span class="d-block p-2 bg-dark text-white "style="font-size: large ">Add New Equipment </span>
-<br>
+
+<span class="d-block p-3 bg-dark text-white">Add Manufacturer </span>
+    <br>
   <div class="container">
     <form method="POST">
       {% csrf_token %}
@@ -14,7 +15,7 @@
 
 
 <br>
-          <button type="submit" class="d-block btn btn-primary btn-block ">Add Equipment</button>
+          <button type="submit" class="d-block btn btn-primary btn-block ">Add Manufacturer</button>
  </form>
         </div>
 <br><br><br>

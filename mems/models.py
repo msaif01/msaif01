@@ -22,12 +22,11 @@ class Manufacturer(models.Model):
     manufacturer_name = models.CharField(max_length=100)
     manufacturer_email = models.CharField(null=True, max_length=100)
     manufacturer_number = models.CharField(null=True, max_length=50)
+    manufacturer_address = models.CharField(null=True, max_length=200)
+
 
     def __str__(self):
         return self.manufacturer_name
-
-    class Meta:
-        ordering = ["manufacturer_name"]
 
 
 class Department(models.Model):

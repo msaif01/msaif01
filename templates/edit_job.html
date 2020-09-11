@@ -12,8 +12,8 @@
       {% csrf_token %}
 
       <h4>{{ header }}</h4>
+         <h2>Edit Job : {{ job_number }}</h2>
         <br>
-    <span class="d-block p-2 bg-warning text-center">Edit Job Number: {{ job_number}}</span>
 
         <span class="d-block p-2 bg-danger">Current Status : {{ instance.job_status }}</span>
         <span class="d-block p-2 bg-dark text-white">Assigned to :{{instance.person}}</span>

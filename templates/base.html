@@ -5,34 +5,21 @@
 <meta charset="UTF-8">
     <title>Medical Equipment Management System</title>
     {% load static %}
+<script src="{% static 'admin/js/vendor/jquery/jquery.min.js' %}" type="text/javascript"></script>
+
 <link rel="stylesheet" href="{%  static '/css/style.css' %}">
 <link rel="stylesheet" href="{%  static '/css/bootstrap.min.css '%}">
 <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}" />
-</head>
 <link rel="stylesheet" href="{%  static '/css/style.css' %}">
 <link rel="stylesheet" href="{%  static '/css/bootstrap.min.css '%}">
 
 <!  ----------------- sidebar--------------->
 <body>
 
-  <!-- Sidebar -->
-
-  <!-- Content -->
-<style>div.content {font-family: Arial;} </style>
 
 
 
   <div id="content">
-
-      <nav class="navbar">
-      <div class="container-fluid">
-        <ul class="nav navbar-nav navbar-right">
-          <li>
-            <a href="#"><i class="zmdi zmdi-notifications text-danger"></i></a>
-          </li>
-        </ul>
-      </div>
-    </nav>
 
 
       <div class="container-fluid">
@@ -84,8 +71,8 @@
              <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown06" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Manufacturer</a>
                <div class="dropdown-menu" aria-labelledby="dropdown06">
-                <a class="dropdown-item" href="#">View All Manufacturers</a>
-                <a class="dropdown-item" href="#">Add new Manufacturer</a>
+                <a class="dropdown-item" href="{% url 'view_manufacturers' %}">View All Manufacturers</a>
+                <a class="dropdown-item" href="{% url 'add_manufacturer' %}">Add new Manufacturer</a>
                 <a class="dropdown-item" href="#">Something else here</a>
                </div>
              </li>
@@ -111,17 +98,6 @@
 
 
 
-
-        <form class="form-inline my-2 my-md-0" style="padding-left: 400px">>
-          <input class="search-label-icon" type="text" placeholder="Search Job">
-        </form>
-
-          <div class="padding">&nbsp;</div>
-          <div class="padding">&nbsp;</div>
-        <form class="form-inline my-2 my-md-0">
-          <input class="search-label-icon" type="text" placeholder="Search Equipment">
-        </form>
-
              <div class="text-white"style="padding-left:400px">
                 {% if user.is_authenticated %}
 
@@ -132,51 +108,25 @@
                 {% endif %}
         </div>
         </div>
-    </nav>
-
-
-
-
-
-      <div class="collapse navbar-collapse" id="navbarsExample06">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="{% url 'display_equipments' %}">Home <span class="sr-only">(current)</span></a>
-          </li>
-           <li class="nav-item">
-               <a class="nav-link" href="{% url 'display_equipments' %}">Home <span class="sr-only">(current)</span></a>
-
-            </div>
-          </li>
-        </ul>
-
-
-
-
 
       </div>
-
-    </nav>
-</code>.
-  <p> </p>
+          </nav>
     </div>
 
 
 
-  </div>
-
-<div class="container" style="padding-top: 40px">
+<p style="margin-bottom: 100px;"></p>
 {%  block body %}
+  {%  endblock %}
 
-{%  endblock %}
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-{% block js %}
+
+  {% block js %}
 
 {%  endblock js %}
-
 </div>
 
 </body>

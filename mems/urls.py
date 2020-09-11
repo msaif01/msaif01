@@ -2,6 +2,7 @@ from django.conf.urls import url
 from django.conf.urls.static import static
 from .views import*
 from django.conf import settings
+from django.urls import path
 
 
 
@@ -23,8 +24,14 @@ url(r'^view_job/(?P<job_number>\d+)/$', view_job, name='view_job'),
 
 url(r'^department_view$', department_view, name="department_view"),
 url(r'^department_dashboard/(?P<id>\d+)/$', department_dashboard, name="department_dashboard"),
+
+
+url(r'^add_manufacturer$', add_manufacturer, name='add_manufacturer'),
+url(r'^view_manufacturers$', view_manufacturers, name="view_manufacturers"),
+url(r'^edit_manufacturer/(?P<id>\d+)/$', edit_manufacturer, name='edit_manufacturer'),
 #url(r'^JobListView$',JobsListView.as_view()),
 
+url(r'^add_model$', add_model, name='add_model'),
 
 url(r'^manufacturer-autocomplete/$',ManufacturerAutocomplete.as_view(), name='manufacturer-autocomplete',),
 url(r'^equipment-autocomplete/$',EquipmentAutocomplete.as_view(), name='equipment-autocomplete',),
