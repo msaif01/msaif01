@@ -25,6 +25,7 @@ def index(request):
 
     # Update PPM due days on page load
     for obj in e:
+        obj.next_service_date = obj.service_date + datetime.timedelta(days=obj.ppm_intervel)
         obj.ppm_due_days = (obj.next_service_date - date.today()).days
         obj.save()
 
